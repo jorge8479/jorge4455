@@ -552,7 +552,7 @@
         }
 
         function redirectToDiscord() {
-            const CLIENT_ID = '1535346943482531892'; 
+            const CLIENT_ID = '1525538450198106193'; 
             const REDIRECT_URI = window.location.href.split('#')[0];
             const url = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=identify%20email`;
             window.location.href = url;
