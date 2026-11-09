@@ -1,0 +1,181 @@
+{
+  "nav": {
+    "home": "Home",
+    "leaderboard": "Leaderboard",
+    "news": "News",
+    "vip": "VIP",
+    "rules": "Rules",
+    "staff": "Staff",
+    "login": "Login",
+    "playNow": "Play Now",
+    "support": "Support"
+  },
+  "hero": {
+    "label": "MTA:SA Roleplay Server",
+    "title": "Night Side",
+    "subtitle": "Roleplay",
+    "description": "A modern MTA:SA roleplay experience. Build your story in a living city, with a community that never sleeps.",
+    "joinCity": "Join the City",
+    "copyIP": "Copy",
+    "playersOnline": "Players Online",
+    "registered": "Registered",
+    "maxPlayers": "Max Players",
+    "uptime": "Uptime"
+  },
+  "features": {
+    "label": "Features",
+    "title": "Built for Real Players",
+    "desc": "Everything you need to enjoy the ultimate roleplay experience. Built for the community, by the community.",
+    "viewAll": "View All",
+    "liveStatus": {
+      "title": "Live Server Status",
+      "desc": "Check real-time server status, player count and uptime.",
+      "link": "View Status"
+    },
+    "profiles": {
+      "title": "Player Profiles",
+      "desc": "View your stats, level, vehicles, properties and achievements.",
+      "link": "View Profile"
+    },
+    "leaderboards": {
+      "title": "Leaderboards",
+      "desc": "Compete with other players for the top spots. Rankings for money, level and more.",
+      "link": "View Leaderboard"
+    },
+    "vip": {
+      "title": "VIP Membership",
+      "desc": "Unlock exclusive perks, priority access, special vehicles and more.",
+      "link": "View VIP Plans"
+    },
+    "support": {
+      "title": "24/7 Support",
+      "desc": "Our staff team is always ready to help. Join our Discord for faster support.",
+      "link": "Contact Staff"
+    }
+  },
+  "topPlayers": {
+    "label": "Top Players",
+    "title": "Server Leaderboard",
+    "viewFull": "View Full Leaderboard"
+  },
+  "news": {
+    "label": "News",
+    "title": "Latest Updates",
+    "allNews": "All News",
+    "viewAll": "View All News"
+  },
+  "discord": {
+    "title": "Join Our Community",
+    "desc": "Connect with thousands of players. Get updates, find partners, and be part of the story.",
+    "joinDiscord": "Join Discord",
+    "members": "Members",
+    "online": "Online",
+    "inVoice": "In Voice"
+  },
+  "footer": {
+    "desc": "The ultimate MTA:SA roleplay experience. A living city with real consequences.",
+    "play": "Play",
+    "account": "Account",
+    "server": "Server",
+    "online": "Online",
+    "rights": "All rights reserved."
+  },
+  "login": {
+    "title": "Welcome Back",
+    "desc": "Login to your Night Side account",
+    "email": "Email or Username",
+    "emailPlaceholder": "Enter your email or username",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "remember": "Remember me",
+    "forgot": "Forgot password?",
+    "loginBtn": "Login",
+    "loggingIn": "Logging in...",
+    "noAccount": "Don't have an account?",
+    "register": "Register now"
+  },
+  "register": {
+    "title": "Create Account",
+    "desc": "Join the Night Side Roleplay community",
+    "username": "Username",
+    "usernamePlaceholder": "Choose a username",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "mtaUsername": "MTA Username",
+    "mtaPlaceholder": "Your in-game account name",
+    "password": "Password",
+    "passwordPlaceholder": "Create a password",
+    "confirmPassword": "Confirm Password",
+    "confirmPlaceholder": "Confirm your password",
+    "terms": "I agree to the",
+    "termsLink": "Terms of Service",
+    "and": "and",
+    "privacyLink": "Privacy Policy",
+    "createBtn": "Create Account",
+    "creating": "Creating account...",
+    "hasAccount": "Already have an account?",
+    "login": "Login"
+  },
+  "leaderboard": {
+    "label": "Hall of Fame",
+    "title": "Leaderboards",
+    "desc": "See who's the best on Night Side Roleplay.",
+    "richest": "Richest",
+    "highestLevel": "Highest Level",
+    "mostActive": "Most Active"
+  },
+  "rules": {
+    "label": "Server Rules",
+    "title": "Rules & Guidelines",
+    "desc": "Please read and follow these rules to ensure a great experience.",
+    "importantNotice": "Important Notice",
+    "noticeDesc": "By playing on Night Side Roleplay, you agree to follow all rules listed above. Server staff reserves the right to take action on any situation not explicitly covered by these rules."
+  },
+  "staff": {
+    "label": "Our Team",
+    "title": "Staff Team",
+    "desc": "Meet the dedicated team that keeps Night Side Roleplay running.",
+    "joinTitle": "Want to Join Our Team?",
+    "joinDesc": "We're always looking for dedicated individuals to help grow our community.",
+    "applyDiscord": "Apply on Discord"
+  },
+  "support": {
+    "label": "Support Center",
+    "title": "Support Tickets",
+    "desc": "Need help? Create a support ticket and our team will assist you.",
+    "myTickets": "My Tickets",
+    "newTicket": "New Ticket",
+    "createTitle": "Create New Ticket",
+    "subject": "Subject",
+    "subjectPlaceholder": "Brief description of your issue",
+    "category": "Category",
+    "priority": "Priority",
+    "message": "Message",
+    "messagePlaceholder": "Describe your issue in detail...",
+    "submit": "Submit Ticket",
+    "cancel": "Cancel"
+  },
+  "vip": {
+    "label": "Premium Membership",
+    "title": "VIP Membership",
+    "desc": "Unlock exclusive perks and benefits. Stand out from the crowd.",
+    "mostPopular": "Most Popular",
+    "getVip": "Get"
+  },
+  "newsPage": {
+    "label": "Stay Updated",
+    "title": "News & Announcements",
+    "desc": "Stay up to date with the latest server updates and events.",
+    "readFull": "Read Full Article"
+  },
+  "admin": {
+    "label": "Administration",
+    "title": "Admin Panel",
+    "desc": "Manage your Night Side Roleplay server",
+    "newsManagement": "News Management",
+    "newsDesc": "Create, edit and manage server news and announcements",
+    "serverStatus": "Server Status",
+    "statusDesc": "View real-time server status and player information",
+    "open": "Open"
+  }
+}
