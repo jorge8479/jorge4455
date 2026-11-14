@@ -1,0 +1,28 @@
+Uri: http://169.40.54.13:20008/
+File Name: C:\Downloaded Web Sites\169.40.54.13\index.htm
+Content Type: text/html
+
+Uri: http://169.40.54.13:20008/bg.mp4
+File Name: C:\Downloaded Web Sites\169.40.54.13\bg.mp4-1.html
+Content Type: text/html
+
+Uri: http://169.40.54.13:20008/login.php
+File Name: C:\Downloaded Web Sites\169.40.54.13\login.php-1.html
+Content Type: text/html
+
+Uri: http://169.40.54.13:20008/logo.png
+File Name: C:\Downloaded Web Sites\169.40.54.13\logo-1.png
+Content Type: image/png
+
+Uri: http://169.40.54.13:20008/montana.webp
+File Name: C:\Downloaded Web Sites\169.40.54.13\montana-1.webp
+Content Type: image/webp
+
+Uri: http://169.40.54.13:20008/morocho.webp
+File Name: C:\Downloaded Web Sites\169.40.54.13\morocho-1.webp
+Content Type: image/webp
+
+Uri: http://169.40.54.13:20008/register.php
+File Name: C:\Downloaded Web Sites\169.40.54.13\register.php-1.html
+Content Type: text/html
+
