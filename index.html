@@ -420,14 +420,28 @@
     }
 
     async function verifyWithBackend(payload) {
-      const response = await fetch(CONFIG.authEndpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      });
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 12000);
+
+      let response;
+      try {
+        response = await fetch(CONFIG.authEndpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload),
+          signal: controller.signal
+        });
+      } catch (netErr) {
+        clearTimeout(timeoutId);
+        if (netErr && netErr.name === 'AbortError') {
+          throw new Error('El servidor tardó demasiado en responder (timeout).');
+        }
+        throw new Error('No se pudo conectar con ' + CONFIG.authEndpoint + '.');
+      }
+      clearTimeout(timeoutId);
 
       const rawText = await response.text();
       let data = null;
@@ -436,7 +450,7 @@
       } catch (e) {
         throw new Error(
           'El servidor backend (' + CONFIG.authEndpoint + ') no devolvió JSON válido. ' +
-          'Asegúrate de tener desplegada la función serverless en Vercel.'
+          'Verifica que el archivo api/discord-auth.js exista en tu repo.'
         );
       }
 
@@ -459,8 +473,6 @@
         });
       }
 
-      await saveUserToFirestore(result.user, result.inGuild);
-
       if (result.inGuild) {
         renderUser('ok', result.user);
         showView('verified');
@@ -468,6 +480,8 @@
         renderUser('denied', result.user);
         showView('notInServer');
       }
+
+      saveUserToFirestore(result.user, result.inGuild);
     }
 
     async function init() {
