@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Logwar — Verificación Discord</title>
+  <style>
+    :root {
+      --bg: #070913;
+      --card: rgba(15, 20, 38, 0.92);
+      --border: rgba(139, 92, 246, 0.28);
+      --discord: #5865F2;
+      --discord-hover: #4752C4;
+      --purple: #7c3aed;
+      --navy: #172554;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --danger: #ef4444;
+      --success: #22c55e;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(124, 58, 237, 0.28), transparent 45%),
+        radial-gradient(circle at 80% 80%, rgba(23, 37, 84, 0.65), transparent 50%),
+        var(--bg);
+    }
+
+    .card {
+      width: 100%;
+      max-width: 440px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 26px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(14px);
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #ddd6fe;
+      background: linear-gradient(135deg, rgba(109, 40, 217, 0.45), rgba(23, 37, 84, 0.85));
+      border: 1px solid rgba(167, 139, 250, 0.35);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--muted);
+      margin-bottom: 22px;
+    }
+
+    .btn {
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 18px;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.15s ease, background 0.15s ease, opacity 0.15s ease;
+      color: #ffffff;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .btn-discord {
+      background: var(--discord);
+    }
+    .btn-discord:hover:not(:disabled) {
+      background: var(--discord-hover);
+    }
+
+    .btn-check {
+      background: linear-gradient(135deg, #6d28d9, #1e3a8a);
+      border: 1px solid rgba(167, 139, 250, 0.4);
+      margin-top: 10px;
+    }
+    .btn-check:hover:not(:disabled) {
+      opacity: 0.92;
+    }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #cbd5e1;
+      margin-top: 10px;
+      font-size: 13px;
+      padding: 10px 14px;
+    }
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .status-box {
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      margin-bottom: 18px;
+      text-align: left;
+      line-height: 1.45;
+    }
+
+    .status-error {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #fecaca;
+    }
+
+    .status-success {
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.35);
+      color: #bbf7d0;
+    }
+
+    .user-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 18px;
+      text-align: left;
+    }
+
+    .user-box img {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #1e293b;
+    }
+
+    .user-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .user-id {
+      font-size: 12px;
+      color: var(--muted);
+      font-family: monospace;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .loader {
+      width: 34px;
+      height: 34px;
+      border: 3px solid rgba(167, 139, 250, 0.25);
+      border-top-color: #8b5cf6;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 16px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="badge">Sistema Logwar</div>
+
+    <!-- 1. Vista Login inicial -->
+    <section id="view-login">
+      <h1>Acceso con Discord</h1>
+      <p>
+        Autoriza tu cuenta de Discord para comprobar si formas parte del servidor oficial y desbloquear el acceso.
+      </p>
+      <div id="login-error" class="status-box status-error hidden"></div>
+      <button id="btn-login" class="btn btn-discord" type="button">
+        Iniciar sesión con Discord
+      </button>
+    </section>
+
+    <!-- 2. Vista Cargando / Verificando -->
+    <section id="view-loading" class="hidden">
+      <div class="loader"></div>
+      <h1>Verificando acceso...</h1>
+      <p id="loading-text">Comprobando tu cuenta y membresía en el servidor...</p>
+    </section>
+
+    <!-- 3. Vista No estás en el servidor -->
+    <section id="view-not-in-server" class="hidden">
+      <h1>No estás en el servidor</h1>
+      <div class="user-box" id="denied-user-box">
+        <img id="denied-avatar" src="" alt="Avatar" />
+        <div>
+          <div class="user-name" id="denied-username">Usuario</div>
+          <div class="user-id" id="denied-userid">ID</div>
+        </div>
+      </div>
+      <div class="status-box status-error">
+        Tu cuenta de Discord no se encuentra dentro del servidor requerido. Únete primero y luego pulsa en revisar.
+      </div>
+      <a
+        id="btn-join-discord"
+        class="btn btn-discord"
+        href="https://discord.gg/3s9VWsP6HJ"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Discord
+      </a>
+      <button id="btn-recheck" class="btn btn-check" type="button">
+        Ya me uní y revisar
+      </button>
+      <button id="btn-logout-denied" class="btn btn-ghost" type="button">
+        Cambiar de cuenta
+      </button>
+    </section>
+
+    <!-- 4. Vista Acceso Concedido -->
+    <section id="view-verified" class="hidden">
+      <h1>Acceso Verificado</h1>
+      <div class="user-box">
+        <img id="ok-avatar" src="" alt="Avatar" />
+        <div>
+          <div class="user-name" id="ok-username">Usuario</div>
+          <div class="user-id" id="ok-userid">ID</div>
+        </div>
+      </div>
+      <div class="status-box status-success">
+        Verificación completada. Estás dentro del servidor autorizado.
+      </div>
+      <button id="btn-logout-ok" class="btn btn-ghost" type="button">
+        Cerrar sesión
+      </button>
+    </section>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+
+    const CONFIG = {
+      clientId: '1569510377639780452',
+      redirectUri: 'https://jorge4455.vercel.app',
+      requiredGuildId: '1568425201304215572',
+      discordInviteUrl: 'https://discord.gg/3s9VWsP6HJ',
+      authEndpoint: '/api/discord-auth',
+      storageKey: 'logwar_discord_session_v1'
+    };
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCVZQxa_5llMoY7mngHRSJYhePBUHHIoio",
+      authDomain: "zenithstudio-52065.firebaseapp.com",
+      projectId: "zenithstudio-52065",
+      storageBucket: "zenithstudio-52065.firebasestorage.app",
+      messagingSenderId: "454873900137",
+      appId: "1:454873900137:web:d8ac7f94f1284a37ffeef8",
+      measurementId: "G-30DMM4LVMP"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const DISCORD_OAUTH_URL =
+      'https://discord.com/oauth2/authorize' +
+      '?client_id=' + encodeURIComponent(CONFIG.clientId) +
+      '&response_type=code' +
+      '&redirect_uri=' + encodeURIComponent(CONFIG.redirectUri) +
+      '&scope=' + encodeURIComponent('identify guilds');
+
+    const views = {
+      login: document.getElementById('view-login'),
+      loading: document.getElementById('view-loading'),
+      notInServer: document.getElementById('view-not-in-server'),
+      verified: document.getElementById('view-verified')
+    };
+
+    const loginErrorEl = document.getElementById('login-error');
+    const loadingTextEl = document.getElementById('loading-text');
+    const btnLogin = document.getElementById('btn-login');
+    const btnRecheck = document.getElementById('btn-recheck');
+    const btnLogoutDenied = document.getElementById('btn-logout-denied');
+    const btnLogoutOk = document.getElementById('btn-logout-ok');
+
+    function toReadableText(value, fallback = 'Error desconocido') {
+      if (!value) return fallback;
+      if (typeof value === 'string') return value;
+      if (value instanceof Error) return value.message || fallback;
+      if (typeof value === 'object') {
+        if (typeof value.message === 'string' && value.message) return value.message;
+        if (typeof value.error_description === 'string' && value.error_description) return value.error_description;
+        if (typeof value.error === 'string' && value.error) return value.error;
+        try {
+          return JSON.stringify(value);
+        } catch (e) {
+          return fallback;
+        }
+      }
+      return String(value);
+    }
+
+    function showView(name) {
+      Object.keys(views).forEach(function (key) {
+        views[key].classList.toggle('hidden', key !== name);
+      });
+    }
+
+    function showLoginError(message) {
+      if (!message) {
+        loginErrorEl.classList.add('hidden');
+        loginErrorEl.textContent = '';
+        return;
+      }
+      loginErrorEl.textContent = toReadableText(message);
+      loginErrorEl.classList.remove('hidden');
+    }
+
+    function getAvatarUrl(user) {
+      if (user && user.avatar && user.id) {
+        return 'https://cdn.discordapp.com/avatars/' + user.id + '/' + user.avatar + '.png?size=128';
+      }
+      return 'https://cdn.discordapp.com/embed/avatars/0.png';
+    }
+
+    function renderUser(prefix, user) {
+      const avatarEl = document.getElementById(prefix + '-avatar');
+      const nameEl = document.getElementById(prefix + '-username');
+      const idEl = document.getElementById(prefix + '-userid');
+      avatarEl.src = getAvatarUrl(user);
+      nameEl.textContent = (user && (user.global_name || user.username)) || 'Usuario de Discord';
+      idEl.textContent = 'ID: ' + ((user && user.id) || '---');
+    }
+
+    function saveSession(data) {
+      try {
+        sessionStorage.setItem(CONFIG.storageKey, JSON.stringify(data));
+      } catch (e) {}
+    }
+
+    function readSession() {
+      try {
+        const raw = sessionStorage.getItem(CONFIG.storageKey);
+        return raw ? JSON.parse(raw) : null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function clearSession() {
+      try {
+        sessionStorage.removeItem(CONFIG.storageKey);
+      } catch (e) {}
+    }
+
+    function startDiscordLogin() {
+      showLoginError('');
+      window.location.href = DISCORD_OAUTH_URL;
+    }
+
+    async function saveUserToFirestore(user, inGuild) {
+      if (!user || !user.id) return;
+      try {
+        await setDoc(
+          doc(db, 'usuarios', String(user.id)),
+          {
+            discordId: String(user.id),
+            username: user.username || '',
+            globalName: user.global_name || user.username || '',
+            avatar: user.avatar || null,
+            inGuild: Boolean(inGuild),
+            guildId: CONFIG.requiredGuildId,
+            actualizadoEn: new Date().toISOString()
+          },
+          { merge: true }
+        );
+      } catch (firestoreErr) {
+        console.warn('No se pudo guardar en Firestore:', toReadableText(firestoreErr));
+      }
+    }
+
+    async function verifyWithBackend(payload) {
+      const response = await fetch(CONFIG.authEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const rawText = await response.text();
+      let data = null;
+      try {
+        data = rawText ? JSON.parse(rawText) : {};
+      } catch (e) {
+        throw new Error(
+          'El servidor backend (' + CONFIG.authEndpoint + ') no devolvió JSON válido. ' +
+          'Asegúrate de tener desplegada la función serverless en Vercel.'
+        );
+      }
+
+      if (!response.ok) {
+        const backendError = toReadableText(
+          data && data.error,
+          'Error HTTP ' + response.status + ' al verificar con Discord.'
+        );
+        throw new Error(backendError);
+      }
+
+      return data;
+    }
+
+    async function handleAuthResult(result) {
+      if (result.accessToken && result.user) {
+        saveSession({
+          accessToken: result.accessToken,
+          user: result.user
+        });
+      }
+
+      await saveUserToFirestore(result.user, result.inGuild);
+
+      if (result.inGuild) {
+        renderUser('ok', result.user);
+        showView('verified');
+      } else {
+        renderUser('denied', result.user);
+        showView('notInServer');
+      }
+    }
+
+    async function init() {
+      const params = new URLSearchParams(window.location.search);
+      const code = params.get('code');
+      const oauthError = params.get('error');
+
+      if (oauthError) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+        showLoginError('Autorización cancelada o denegada en Discord.');
+        showView('login');
+        return;
+      }
+
+      if (code) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+        loadingTextEl.textContent = 'Validando autorización con Discord...';
+        showView('loading');
+        try {
+          const result = await verifyWithBackend({
+            code: code,
+            redirectUri: CONFIG.redirectUri,
+            guildId: CONFIG.requiredGuildId
+          });
+          await handleAuthResult(result);
+        } catch (err) {
+          clearSession();
+          showLoginError(toReadableText(err, 'No se pudo completar el inicio de sesión.'));
+          showView('login');
+        }
+        return;
+      }
+
+      const saved = readSession();
+      if (saved && saved.accessToken) {
+        loadingTextEl.textContent = 'Comprobando tu membresía en el servidor...';
+        showView('loading');
+        try {
+          const result = await verifyWithBackend({
+            accessToken: saved.accessToken,
+            guildId: CONFIG.requiredGuildId
+          });
+          await handleAuthResult(result);
+        } catch (err) {
+          clearSession();
+          showView('login');
+        }
+        return;
+      }
+
+      showView('login');
+    }
+
+    btnLogin.addEventListener('click', startDiscordLogin);
+
+    btnRecheck.addEventListener('click', async function () {
+      const saved = readSession();
+      if (!saved || !saved.accessToken) {
+        startDiscordLogin();
+        return;
+      }
+
+      btnRecheck.disabled = true;
+      btnRecheck.textContent = 'Revisando...';
+      try {
+        const result = await verifyWithBackend({
+          accessToken: saved.accessToken,
+          guildId: CONFIG.requiredGuildId
+        });
+        await handleAuthResult(result);
+      } catch (err) {
+        clearSession();
+        startDiscordLogin();
+      } finally {
+        btnRecheck.disabled = false;
+        btnRecheck.textContent = 'Ya me uní y revisar';
+      }
+    });
+
+    function logout() {
+      clearSession();
+      showLoginError('');
+      showView('login');
+    }
+
+    btnLogoutDenied.addEventListener('click', logout);
+    btnLogoutOk.addEventListener('click', logout);
+
+    init();
+  </script>
+</body>
+</html>
