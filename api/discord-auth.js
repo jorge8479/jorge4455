@@ -6,7 +6,8 @@ export default async function handler(req, res) {
   try {
     const { code, accessToken, redirectUri, guildId } = req.body || {};
     const clientId = process.env.DISCORD_CLIENT_ID || '1569510377639780452';
-    const clientSecret = process.env.DISCORD_CLIENT_SECRET;
+    const clientSecret =
+      process.env.DISCORD_CLIENT_SECRET || 'w20l_pCcpdd-1AlXCrAy7uCtIsktEVot';
     const finalRedirectUri =
       redirectUri || process.env.DISCORD_REDIRECT_URI || 'https://jorge4455.vercel.app';
 
