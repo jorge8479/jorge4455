@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* Corregido: selector universal * */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         :root {
@@ -29,7 +30,6 @@
             position: relative;
         }
 
-        /* Malla degradada de fondo */
         .bg-mesh {
             position: fixed;
             top: 0; left: 0;
@@ -42,7 +42,6 @@
                 radial-gradient(ellipse at bottom right, rgba(255,26,26,0.1) 0%, transparent 50%);
         }
 
-        /* Manchas flotantes */
         .mesh-blob {
             position: absolute;
             filter: blur(90px);
@@ -58,7 +57,6 @@
             50% { transform: translate(30px, 30px) scale(1.1); } 
         }
 
-        /* Canvas de partículas */
         #particles-canvas {
             position: fixed;
             top: 0; left: 0;
@@ -96,22 +94,20 @@
 </head>
 <body>
 
-    <!-- Fondo de malla y manchas -->
     <div class="bg-mesh">
         <div class="mesh-blob blob-1"></div>
         <div class="mesh-blob blob-2"></div>
         <div class="mesh-blob blob-3"></div>
     </div>
 
-    <!-- Canvas de partículas interactivo -->
     <canvas id="particles-canvas"></canvas>
     
     <div class="login-card">
         <div class="mx-auto w-20 h-20 rounded-xl mb-6 shadow-lg border-2 border-red-600 bg-gradient-to-br from-red-500 to-red-800 flex items-center justify-center text-3xl font-black">P</div>
         <h1 class="text-3xl font-black text-white mb-2 tracking-wide uppercase">HXCKS <span class="text-red-400">CODE MTA:SA</span></h1>
-        <p class="text-gray-400 text-sm mb-8">Inicia sesión con Discord para acceder a tus compras, descargar recursos y gestionar licencias.</p>
+        <p id="status-msg" class="text-gray-400 text-sm mb-8">Inicia sesión con Discord para acceder a tus compras, descargar recursos y gestionar licencias.</p>
         
-        <button onclick="redirectToDiscord()" class="btn-discord w-full text-white font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-3 transition-all duration-200 transform hover:scale-[1.02] mb-4">
+        <button id="discord-btn" onclick="redirectToDiscord()" class="btn-discord w-full text-white font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-3 transition-all duration-200 transform hover:scale-[1.02] mb-4 cursor-pointer">
             <i class="fab fa-discord text-xl"></i> Continuar con Discord
         </button>
         
@@ -120,8 +116,8 @@
         </a>
     </div>
 
-    <!-- Script de partículas -->
     <script>
+        // --- Partículas ---
         const canvas = document.getElementById('particles-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -160,31 +156,58 @@
 
         function initParticles() {
             particles = [];
-            for (let i = 0; i < 60; i++) {
-                particles.push(new Particle());
-            }
+            for (let i = 0; i < 60; i++) particles.push(new Particle());
         }
 
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
+            particles.forEach(p => { p.update(); p.draw(); });
             requestAnimationFrame(animateParticles);
         }
 
         initParticles();
         animateParticles();
 
-        // Función de Discord
+        // --- Configuración de Discord OAuth2 ---
         const CLIENT_ID = '1573744217711452281'; 
-        const REDIRECT_URI = 'https://jorge4455.vercel.app/Login.html'; 
+        // IMPORTANTE: Esta URL debe estar registrada exactamente igual en Discord Developer Portal -> OAuth2 -> Redirects
+        const REDIRECT_URI = 'https://jorge4455.vercel.app'; 
+        const SCOPES = 'identify email'; // Puedes cambiar a 'identify' si no necesitas el correo
 
         function redirectToDiscord() {
-            const url = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=identify%20email`;
+            const url = `https://discord.com/oauth2/authorize?client_id=${CLIENT_ID}&response_type=token&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=${encodeURIComponent(SCOPES)}`;
             window.location.href = url;
         }
+
+        // --- Procesar el regreso desde Discord ---
+        window.addEventListener('DOMContentLoaded', () => {
+            const fragment = new URLSearchParams(window.location.hash.slice(1));
+            const accessToken = fragment.get('access_token');
+            const tokenType = fragment.get('token_type');
+
+            if (accessToken) {
+                document.getElementById('status-msg').textContent = 'Verificando cuenta de Discord...';
+                
+                fetch('https://discord.com/api/users/@me', {
+                    headers: {
+                        authorization: `${tokenType} ${accessToken}`,
+                    },
+                })
+                .then(res => res.json())
+                .then(user => {
+                    if (user.id) {
+                        // Guardar datos del usuario en localStorage para usarlos en index.html
+                        localStorage.setItem('discord_user', JSON.stringify(user));
+                        // Limpiar el token de la barra de direcciones y redirigir
+                        window.location.href = 'index.html';
+                    }
+                })
+                .catch(err => {
+                    console.error('Error al obtener usuario:', err);
+                    document.getElementById('status-msg').textContent = 'Error al iniciar sesión. Inténtalo de nuevo.';
+                });
+            }
+        });
     </script>
 </body>
 </html>
