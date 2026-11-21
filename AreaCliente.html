@@ -97,87 +97,20 @@
         .review-author { font-weight: 600; color: white; margin-bottom: 4px; }
         .review-date { font-size: 12px; color: #6b7280; margin-bottom: 8px; }
         .review-text { color: #d1d5db; line-height: 1.6; }
-
-        /* ESTILOS NUEVOS PARA SOPORTE */
-        .chat-container { display: flex; flex-direction: column; height: 500px; }
-        .chat-messages { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px; background: rgba(5, 5, 7, 0.5); border-radius: 12px; border: 1px solid rgba(255, 26, 26, 0.1); margin-bottom: 15px; }
-        .message-bubble { max-width: 80%; padding: 12px 16px; border-radius: 12px; font-size: 14px; line-height: 1.5; position: relative; animation: fadeIn 0.3s ease; }
-        .message-user { align-self: flex-end; background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); color: white; border-bottom-right-radius: 2px; }
-        .message-support { align-self: flex-start; background: rgba(31, 41, 55, 0.9); border: 1px solid rgba(255, 255, 255, 0.1); color: #e2e8f0; border-bottom-left-radius: 2px; }
-        .message-meta { font-size: 10px; opacity: 0.7; margin-top: 4px; text-align: right; }
-        .support-input-area { display: flex; gap: 10px; }
-        .ticket-status-badge { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; text-transform: uppercase; }
-        .status-open { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
-        .status-closed { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
-        .status-assigned { background: rgba(59, 130, 246, 0.2); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.3); }
-
-        /* MODAL PERSONALIZADO */
-        .custom-modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(5px);
-            z-index: 9999;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            animation: fadeIn 0.2s ease;
-        }
-        .custom-modal-overlay.active { display: flex; }
-        .custom-modal {
-            background: linear-gradient(135deg, #150a0a 0%, #0d0505 100%);
-            border: 2px solid #dc2626;
-            border-radius: 16px;
-            padding: 32px;
-            max-width: 450px;
-            width: 90%;
-            box-shadow: 0 0 60px rgba(220, 38, 38, 0.4);
-            animation: slideUp 0.3s ease;
-        }
-        .custom-modal-buttons {
-            display: flex;
-            gap: 12px;
-            margin-top: 24px;
-        }
-        .custom-modal-buttons button {
-            flex: 1;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
-        }
-        .btn-modal-confirm {
-            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
-            color: white;
-        }
-        .btn-modal-confirm:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(220, 38, 38, 0.4);
-        }
-        .btn-modal-cancel {
-            background: rgba(255, 255, 255, 0.1);
-            color: #e2e8f0;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .btn-modal-cancel:hover {
-            background: rgba(255, 255, 255, 0.15);
-        }
     </style>
 </head>
 <body class="min-h-screen flex">
 
     <!-- Sidebar -->
     <aside class="sidebar w-64 fixed left-0 top-0 h-full z-50 hidden md:block">
-    <div class="p-6">
-        <div class="flex items-center gap-3 mb-8 cursor-pointer" onclick="window.location.href='index.html'">
-            <img src="/files/999.png" alt="Logo Papeleta Store" class="w-10 h-10 rounded-lg object-cover shadow-lg shadow-red-900/50 bg-white">
-            <div>
-               <span class="text-white font-bold text-base tracking-wide block">PAPELETA STORE</span>
-                <span id="admin-badge-sidebar" class="admin-badge hidden">ADMIN</span>
+        <div class="p-6">
+            <div class="flex items-center gap-3 mb-8 cursor-pointer" onclick="window.location.href='index.html'">
+                <img src="/files/999.png" alt="Logo Papeleta Store" class="w-10 h-10 rounded-lg object-cover shadow-lg shadow-red-900/50 bg-white">
+                <div>
+                    <span class="text-white font-bold text-base tracking-wide block">PAPELETA STORE</span>
+                    <span id="admin-badge-sidebar" class="admin-badge hidden">ADMIN</span>
+                </div>
             </div>
-        </div>
             <nav class="space-y-2">
                 <div class="text-xs text-gray-500 uppercase font-semibold mb-4 px-3 tracking-wider">Principal</div>
                 <a href="#" onclick="showSection('dashboard', event)" class="nav-item active flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-300"><i class="fas fa-home w-5"></i><span>Inicio</span></a>
@@ -300,7 +233,7 @@
                 </div>
             </div>
 
-            <!-- SECCIÓN DE SOPORTE - SOLO MUESTRA EL MENSAJE DE MANTENIMIENTO -->
+            <!-- SECCIÓN DE SOPORTE -->
             <div id="section-support" class="section">
                 <div class="card rounded-xl p-6">
                     <div class="flex items-center gap-3 mb-6">
@@ -308,7 +241,6 @@
                         <h2 class="text-lg font-bold text-white">Centro de Soporte</h2>
                     </div>
                     
-                    <!-- SOLO ESTO SE MUESTRA - Mensaje de Mantenimiento -->
                     <div class="text-center py-16 border-2 border-dashed border-red-900/30 rounded-xl bg-red-900/5">
                         <div class="mb-6">
                             <i class="fas fa-tools text-red-500 text-6xl animate-pulse"></i>
@@ -319,7 +251,7 @@
                         <div class="max-w-md mx-auto mt-8">
                             <div class="bg-[#0d0505] border border-red-600/30 p-4 rounded-lg">
                                 <p class="text-gray-300 text-lg font-medium leading-relaxed">
-                                    Esto es para enviar un ticket a discord esta en matemineto
+                                    El sistema para enviar tickets a Discord está en mantenimiento.
                                 </p>
                             </div>
                         </div>
@@ -386,15 +318,15 @@
     <div id="toast-container" class="toast-container"></div>
 
     <script>
-const firebaseConfig = {
-      apiKey: "AIzaSyCVZQxa_5llMoY7mngHRSJYhePBUHHIoio",
-      authDomain: "zenithstudio-52065.firebaseapp.com",
-      projectId: "zenithstudio-52065",
-      storageBucket: "zenithstudio-52065.firebasestorage.app",
-      messagingSenderId: "454873900137",
-      appId: "1:454873900137:web:d8ac7f94f1284a37ffeef8",
-      measurementId: "G-30DMM4LVMP"
-    };
+        const firebaseConfig = {
+            apiKey: "AIzaSyCVZQxa_5llMoY7mngHRSJYhePBUHHIoio",
+            authDomain: "zenithstudio-52065.firebaseapp.com",
+            projectId: "zenithstudio-52065",
+            storageBucket: "zenithstudio-52065.firebasestorage.app",
+            messagingSenderId: "454873900137",
+            appId: "1:454873900137:web:d8ac7f94f1284a37ffeef8",
+            measurementId: "G-30DMM4LVMP"
+        };
 
         if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
@@ -402,7 +334,6 @@ const firebaseConfig = {
         let currentUser = null;
         let currentUserRole = 'client';
         let allProducts = [];
-        let userFixedLicenseKey = null;
         let currentReviewProduct = null;
         let selectedRating = 0;
 
@@ -410,43 +341,35 @@ const firebaseConfig = {
         const REDIRECT_URI = window.location.href.split('#')[0]; 
         const ADMIN_DISCORD_IDS = ['1171987066272370712']; 
 
-        // Función para obtener el link de Discord (personalizado o por defecto)
         function getDiscordLink() {
             return localStorage.getItem('custom_discord_link') || 'https://discord.gg/3zS995624x';
         }
 
-        // Función para ir a Discord
         function goToDiscord() {
             window.open(getDiscordLink(), '_blank');
         }
 
-        // Abrir modal para cambiar link
         function openLinkModal() {
-            const currentLink = getDiscordLink();
-            document.getElementById('discord-link-input').value = currentLink;
+            document.getElementById('discord-link-input').value = getDiscordLink();
             document.getElementById('link-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
-        // Cerrar modal
         function closeLinkModal() {
             document.getElementById('link-modal').classList.remove('active');
+            document.body.style.overflow = '';
         }
 
-        // Guardar nuevo link
         function saveDiscordLink() {
             const newLink = document.getElementById('discord-link-input').value.trim();
-            
             if (!newLink) {
                 showToast('Por favor ingresa un link válido', 'warning');
                 return;
             }
-            
-            // Validar que sea un link de Discord
             if (!newLink.includes('discord.gg/') && !newLink.includes('discord.com/')) {
                 showToast('El link debe ser de Discord (discord.gg/...)', 'error');
                 return;
             }
-            
             localStorage.setItem('custom_discord_link', newLink);
             showToast('Link de Discord actualizado correctamente', 'success');
             closeLinkModal();
@@ -464,12 +387,12 @@ const firebaseConfig = {
         }
 
         function isAdmin() { return currentUser && ADMIN_DISCORD_IDS.includes(currentUser.id); }
-        function isSupportStaff() { return isAdmin(); }
 
         function validateIPPort(ip, port) {
             const ipRegex = /^(\d{1,3}\.){3}\d{1,3}$/;
-            const portNum = parseInt(port);
-            return ipRegex.test(ip) && !isNaN(portNum) && portNum >= 1 && portNum <= 65535;
+            const portNum = parseInt(port, 10);
+            const octetsValid = ip.split('.').every(n => parseInt(n, 10) >= 0 && parseInt(n, 10) <= 255);
+            return ipRegex.test(ip) && octetsValid && !isNaN(portNum) && portNum >= 1 && portNum <= 65535;
         }
 
         function redirectToDiscord() {
@@ -512,7 +435,8 @@ const firebaseConfig = {
                 
                 ensureFixedLicense().then(() => { 
                     loadDashboardData(); 
-                    updateLicenseDisplay(); 
+                    updateLicenseDisplay();
+                    listenForApprovedOrders();
                 });
             })
             .catch(err => { console.error(err); logout(); });
@@ -557,13 +481,13 @@ const firebaseConfig = {
             const stars = document.querySelectorAll('#star-rating .star');
             stars.forEach(star => {
                 star.addEventListener('click', function() {
-                    selectedRating = parseInt(this.dataset.rating);
+                    selectedRating = parseInt(this.dataset.rating, 10);
                     stars.forEach((s, index) => { s.classList.toggle('active', index < selectedRating); });
                     const ratingTexts = ['', 'Muy malo', 'Malo', 'Regular', 'Bueno', 'Excelente'];
                     document.getElementById('rating-text').textContent = ratingTexts[selectedRating];
                 });
                 star.addEventListener('mouseenter', function() {
-                    const rating = parseInt(this.dataset.rating);
+                    const rating = parseInt(this.dataset.rating, 10);
                     stars.forEach((s, index) => { s.style.color = index < rating ? '#fbbf24' : '#374151'; });
                 });
             });
@@ -600,9 +524,7 @@ const firebaseConfig = {
                     .where("type", "==", "general")
                     .limit(1).get();
 
-                if (!snapshot.empty) {
-                    userFixedLicenseKey = snapshot.docs[0].data().key;
-                } else {
+                if (snapshot.empty) {
                     const newKey = generateUniqueKey();
                     const newUser = generateUserCode();
                     
@@ -615,7 +537,6 @@ const firebaseConfig = {
                         created_at: firebase.firestore.FieldValue.serverTimestamp(), 
                         status: 'active'
                     });
-                    userFixedLicenseKey = newKey;
                 }
                 updateLicenseDisplay();
             } catch (error) { console.error("Error gestionando licencia fija:", error); }
@@ -651,11 +572,7 @@ const firebaseConfig = {
         async function saveServerConfig(event) {
             const ipInput = document.getElementById('server-ip');
             const portInput = document.getElementById('server-port');
-            
-            if (!ipInput || !portInput) {
-                console.error("No se encontraron los campos de IP/Puerto");
-                return;
-            }
+            if (!ipInput || !portInput) return;
 
             const ip = ipInput.value.trim();
             const port = portInput.value.trim();
@@ -671,7 +588,7 @@ const firebaseConfig = {
             }
 
             if (!currentUser || !currentUser.id) {
-                showToast('️ Error de sesión. Por favor recarga la página e inicia sesión de nuevo.', 'error');
+                showToast('Error de sesión. Recarga la página e inicia sesión de nuevo.', 'error');
                 return;
             }
             
@@ -685,19 +602,14 @@ const firebaseConfig = {
                 
                 if (!licenseSnapshot.empty) {
                     const batch = db.batch();
-                    let count = 0;
-                    
                     licenseSnapshot.forEach((doc) => {
                         batch.update(doc.ref, {
                             ip: ip,
                             port: port,
                             updated_at: firebase.firestore.FieldValue.serverTimestamp()
                         });
-                        count++;
                     });
-                    
                     await batch.commit();
-                    
                 } else {
                     await db.collection("Licencias").add({
                         discord_id: currentUser.id,
@@ -715,7 +627,6 @@ const firebaseConfig = {
                     const original = btn.innerHTML;
                     btn.innerHTML = '<i class="fas fa-check"></i> Guardado';
                     btn.classList.add('bg-green-600');
-                    
                     setTimeout(() => {
                         btn.innerHTML = original;
                         btn.classList.remove('bg-green-600');
@@ -723,9 +634,8 @@ const firebaseConfig = {
                 }
                 
                 showToast('IP y Puerto guardados correctamente', 'success');
-                
             } catch (error) {
-                console.error("❌ ERROR CRÍTICO EN SAVE:", error);
+                console.error("Error al guardar configuración:", error);
                 showToast('Error al guardar', 'error');
             }
         }
@@ -793,7 +703,6 @@ const firebaseConfig = {
                 document.body.removeChild(link);
                 
                 showToast('Descarga iniciada. Licencia vinculada.', 'success', '¡Listo!');
-                
             } catch (error) {
                 console.error("Error al vincular licencia:", error);
                 showToast('Error al vincular la licencia.', 'error');
@@ -817,13 +726,11 @@ const firebaseConfig = {
             db.collection("Compra")
                 .where("discord_id", "==", currentUser.id)
                 .onSnapshot(async (snapshot) => {
-                    snapshot.docChanges().forEach(async (change) => {
-                        if (change.type === "modified") {
+                    for (const change of snapshot.docChanges()) {
+                        if (change.type === "modified" || change.type === "added") {
                             const data = change.doc.data();
-                            if (data.status === "approved" || data.status === "aprobado" || data.status === "completed") {
-                                if (data.status === "completed") return;
-
-                                if (data.products && Array.isArray(data.products)) {
+                            if (data.status === "approved" || data.status === "aprobado") {
+                                if (Array.isArray(data.products)) {
                                     for (const product of data.products) {
                                         const existingLicense = await db.collection("Licencias")
                                             .where("discord_id", "==", currentUser.id)
@@ -832,16 +739,13 @@ const firebaseConfig = {
                                             .limit(1).get();
 
                                         if (existingLicense.empty) {
-                                            const newKey = generateUniqueKey();
-                                            const newUserCode = generateUserCode();
-
                                             await db.collection("Licencias").add({
                                                 discord_id: currentUser.id,
                                                 username: currentUser.username,
                                                 product_id: product.id,
                                                 product_name: product.name,
-                                                key: newKey,
-                                                user_code: newUserCode,
+                                                key: generateUniqueKey(),
+                                                user_code: generateUserCode(),
                                                 type: "product",
                                                 created_at: firebase.firestore.FieldValue.serverTimestamp(),
                                                 status: 'active'
@@ -865,7 +769,7 @@ const firebaseConfig = {
                                 loadDashboardData();
                             }
                         }
-                    });
+                    }
                 });
         }
 
@@ -912,7 +816,7 @@ const firebaseConfig = {
                     document.getElementById('dashboard-empty-state').classList.add('hidden');
                     const reviewsSnapshot = await db.collection("Resenas").where("user_id", "==", currentUser.id).get();
                     const reviewedProductIds = new Set();
-                    reviewsSnapshot.forEach(doc => reviewedProductIds.add(doc.data().product_id));
+                    reviewsSnapshot.forEach(doc => reviewedProductIds.add(String(doc.data().product_id)));
                     
                     container.innerHTML = purchasedProducts.map(item => {
                         const hasReview = reviewedProductIds.has(String(item.id)) || reviewedProductIds.has(String(item.docId));
@@ -959,12 +863,15 @@ const firebaseConfig = {
             if (!reviewText) { showToast('Escribe tu reseña', 'warning'); return; }
             
             try {
-                const existingReview = await db.collection("Resenas").where("product_id", "==", currentReviewProduct).where("user_id", "==", currentUser.id).limit(1).get();
-                if (!existingReview.empty) { showToast('Ya reseñaste este producto', 'error'); closeReviewModal(); return; }
-                
-                const product = allProducts.find(p => String(p.id) === String(currentReviewProduct) || String(p.docId) === String(currentReviewProduct));
-                const productName = product ? product.name : 'Producto General';
-                const productImage = product && product.image_url ? product.image_url : null;
+                const existingReview = await db.collection("Resenas")
+                    .where("product_id", "==", currentReviewProduct)
+                    .where("user_id", "==", currentUser.id)
+                    .limit(1).get();
+                if (!existingReview.empty) {
+                    showToast('Ya reseñaste este producto', 'error');
+                    closeReviewModal();
+                    return;
+                }
 
                 await db.collection("Resenas").add({
                     product_id: currentReviewProduct,
@@ -1020,9 +927,8 @@ const firebaseConfig = {
                     const date = review.created_at?.toDate ? review.created_at.toDate().toLocaleDateString('es-ES') : 'Fecha desconocida';
                     const product = allProducts.find(p => String(p.id) === String(review.product_id) || String(p.docId) === String(review.product_id));
                     const productName = product ? product.name : 'Producto no encontrado';
-                    const safeProductName = productName.replace(/'/g, "\\'");
                     
-                    reviewsHTML += `<div class="review-card"><div class="flex items-start justify-between mb-3"><div><div class="review-stars">${stars}</div><p class="review-author">${safeProductName}</p><p class="review-date">${date}</p></div>${isAdmin() ? `<button onclick="deleteReview('${review.id}')" class="text-red-400 hover:text-red-300 text-sm"><i class="fas fa-trash"></i></button>` : ''}</div><p class="review-text">${review.text}</p></div>`;
+                    reviewsHTML += `<div class="review-card"><div class="flex items-start justify-between mb-3"><div><div class="review-stars">${stars}</div><p class="review-author">${productName}</p><p class="review-date">${date}</p></div>${isAdmin() ? `<button onclick="deleteReview('${review.id}')" class="text-red-400 hover:text-red-300 text-sm"><i class="fas fa-trash"></i></button>` : ''}</div><p class="review-text">${review.text}</p></div>`;
                 });
                 container.innerHTML = reviewsHTML;
             } catch (error) {
@@ -1043,3 +949,6 @@ const firebaseConfig = {
     </script>
 </body>
 </html>
+```[cite: 19]
+
+¿Quieres que revisemos el siguiente archivo o la parte restante de `Admin`?
